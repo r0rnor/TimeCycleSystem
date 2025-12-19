@@ -1,10 +1,10 @@
-import { buildTheme } from "./themer";
+import { buildTheme } from "../themer";
 
-export const EvergreenTheme = buildTheme({
-	theme: "Evergreen",
+export const TreeTopTheme = buildTheme({
+	theme: "Tree Top",
 	colors: {
-		primary: Color3.fromRGB(161, 255, 161),
-		secondary: Color3.fromRGB(230, 166, 255),
+		primary: Color3.fromRGB(160, 69, 53),
+		secondary: Color3.fromRGB(45, 181, 122),
 		error: Color3.fromRGB(232, 70, 70),
 		success: Color3.fromRGB(61, 220, 68),
 	},

@@ -19,6 +19,9 @@ export interface DropdownFrameProps extends FrameProps {
 	textColor3?: Color3;
 	selectedColor3?: Color3;
 	hoverColor3?: Color3;
+
+	buttonBorderSize?: number;
+	dropdownBorderSize?: number;
 }
 
 export default function DropdownFrame(props: DropdownFrameProps) {
@@ -43,6 +46,7 @@ export default function DropdownFrame(props: DropdownFrameProps) {
 				backgroundColor3={props.backgroundColor3}
 				borderColor={props.borderColor}
 				textColor3={props.textColor3}
+				borderSize={props.buttonBorderSize}
 				onClick={() => setIsOpen(!isOpen)}
 				isOpen={isOpen}
 			/>
@@ -50,14 +54,15 @@ export default function DropdownFrame(props: DropdownFrameProps) {
 			{isOpen && (
 				<DropdownScrollingFrame
 					options={props.options}
-					optionsHeight={props.optionsHeight ?? 40}
-					maxHeight={props.maxHeight ?? 200}
+					optionsHeight={props.optionsHeight ?? px(40)}
+					maxHeight={props.maxHeight ?? px(200)}
 					value={props.value}
 					backgroundColor3={props.backgroundColor3}
 					borderColor={props.borderColor}
 					textColor3={props.textColor3}
 					selectedColor3={props.selectedColor3}
 					hoverColor3={props.hoverColor3}
+					borderSize={props.dropdownBorderSize}
 					onChange={handleSelect}
 				/>
 			)}

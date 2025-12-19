@@ -1,4 +1,4 @@
-import { buildTheme } from "./themer";
+import { buildTheme } from "../themer";
 
 export const PureDarkTheme = buildTheme({
 	theme: "Pure Dark",

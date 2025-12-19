@@ -19,23 +19,26 @@ interface DropdownScrollingFrameProps {
 	textColor3?: Color3;
 	selectedColor3?: Color3;
 	hoverColor3?: Color3;
+	borderSize?: number;
 }
 
-export default function DropdownScrollingFrame({ options, optionsHeight, maxHeight, value, onChange, backgroundColor3, borderColor, textColor3, selectedColor3, hoverColor3 }: DropdownScrollingFrameProps) {
+export default function DropdownScrollingFrame(props: DropdownScrollingFrameProps) {
 	const { colors, stroke } = useContext(ThemeContext);
 	const px = usePx();
 
-	const mainBgColor = backgroundColor3 ?? colors.primary.main;
-	const mainBorderColor = borderColor ?? colors.primary.opposite;
+	const mainBgColor = props.backgroundColor3 ?? colors.primary.main;
+	const mainBorderColor = props.borderColor ?? colors.primary.opposite;
+
+	const scrollingFrameSize = new UDim2(1, 0, 0, math.min(props.options.size() * props.optionsHeight, props.maxHeight));
 
 	const dropdownUi = (
 		<Frame
 			position={new UDim2(0, 0, 1.3, 0)}
 			anchorPoint={new Vector2(0, 0)}
-			size={new UDim2(1, 0, 0, px(math.min(options.size() * optionsHeight, maxHeight)))}
+			size={scrollingFrameSize}
 			backgroundColor3={mainBgColor}
 			borderColor={mainBorderColor}
-			uiStrokeSize={px(stroke[1.25])}
+			borderSize={props.borderSize ?? px(stroke[1.25])}
 			zIndex={10}
 		>
 			<ContainerFrame
@@ -43,17 +46,17 @@ export default function DropdownScrollingFrame({ options, optionsHeight, maxHeig
 				backgroundTransparency={1}
 				scrollBarThickness={px(stroke[3])}
 				scrollBarImageColor3={mainBorderColor}
-				cellSize={new UDim2(1, 0, 0, optionsHeight)}
+				cellSize={new UDim2(1, 0, 0, props.optionsHeight)}
 			>
 				<OptionsContainer
-					optionsHeight={optionsHeight}
-					options={options}
-					value={value}
-					onChange={onChange}
-					backgroundColor3={backgroundColor3}
-					textColor3={textColor3}
-					selectedColor3={selectedColor3}
-					hoverColor3={hoverColor3}
+					optionsHeight={props.optionsHeight}
+					options={props.options}
+					value={props.value}
+					onChange={props.onChange}
+					backgroundColor3={props.backgroundColor3}
+					textColor3={props.textColor3}
+					selectedColor3={props.selectedColor3}
+					hoverColor3={props.hoverColor3}
 				/>
 			</ContainerFrame>
 		</Frame>

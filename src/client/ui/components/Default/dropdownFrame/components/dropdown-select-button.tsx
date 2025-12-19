@@ -17,9 +17,10 @@ interface DropdownSelectButtonProps {
 	backgroundColor3?: Color3;
 	borderColor?: Color3;
 	textColor3?: Color3;
+	borderSize?: number;
 }
 
-export default function DropdownSelectButton({ options, value, onClick, isOpen, placeholder = "Select...", backgroundColor3, borderColor, textColor3 }: DropdownSelectButtonProps) {
+export default function DropdownSelectButton({ options, value, onClick, isOpen, placeholder = "Select...", backgroundColor3, borderColor, textColor3, borderSize }: DropdownSelectButtonProps) {
 	const { colors, textColors, textSize } = useContext(ThemeContext);
 	const px = usePx();
 
@@ -42,6 +43,7 @@ export default function DropdownSelectButton({ options, value, onClick, isOpen, 
 			textSize={px(textSize[1.25])}
 			autoButtonColor={false}
 			onClick={onClick}
+			borderSize={borderSize}
 		>
 			<TextLabel
 				size={UDim2.fromOffset(px(20), px(20))}

@@ -20,8 +20,11 @@ export const themeSlice = createProducer(INITIAL_STATE, {
 		return newState;
 	},
 
-	setTheme: (state, playerId: string, theme: ThemeName) => ({
-		...state,
-		[playerId]: theme,
-	}),
+	setTheme: (state, playerId: string, theme: ThemeName) => {
+		const newState = { ...state };
+
+		newState[playerId] = theme;
+
+		return newState;
+	},
 });

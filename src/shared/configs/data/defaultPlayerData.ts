@@ -5,5 +5,5 @@ export interface PlayerData {
 }
 
 export default {
-	theme: "pureDark",
+	theme: "evergreen",
 } as PlayerData;

@@ -13,7 +13,7 @@ export interface FrameProps extends React.PropsWithChildren {
 	visible?: boolean;
 	borderColor?: Color3;
 
-	uiStrokeSize?: number;
+	borderSize?: number;
 	cornerRadius?: UDim;
 
 	zIndex?: number;
@@ -43,7 +43,7 @@ export default function Frame(props: FrameProps) {
 
 			{props.backgroundTransparency === 0 && (
 				<uistroke
-					Thickness={props.uiStrokeSize ?? px(stroke[2])}
+					Thickness={props.borderSize ?? px(stroke[2])}
 					Color={props.borderColor ?? colors.primary.opposite}
 				/>
 			)}
