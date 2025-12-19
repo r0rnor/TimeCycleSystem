@@ -32,7 +32,8 @@ export default function ThemeSwitchButton() {
 			options={options}
 			buttonBorderSize={px(stroke[2])}
 			dropdownBorderSize={px(stroke[2])}
-			position={new UDim2(0.5, 0, 0.2, 0)}
+			position={new UDim2(0.5, 0, 0.85, 0)}
+			anchorPoint={new Vector2(0.5, 1)}
 			onChange={(value) => {
 				const newTheme = value as ThemeName;
 

@@ -29,11 +29,15 @@ export default function DropdownScrollingFrame(props: DropdownScrollingFrameProp
 	const mainBgColor = props.backgroundColor3 ?? colors.primary.main;
 	const mainBorderColor = props.borderColor ?? colors.primary.opposite;
 
+	const scrollingFrameSize = new UDim2(1, 0, 0, math.min(props.options.size() * props.optionsHeight, props.maxHeight));
+
+	print(scrollingFrameSize);
+
 	const dropdownUi = (
 		<Frame
 			position={new UDim2(0, 0, 1.3, 0)}
 			anchorPoint={new Vector2(0, 0)}
-			size={new UDim2(1, 0, 0, px(math.min(props.options.size() * props.optionsHeight, props.maxHeight)))}
+			size={scrollingFrameSize}
 			backgroundColor3={mainBgColor}
 			borderColor={mainBorderColor}
 			borderSize={props.borderSize ?? px(stroke[1.25])}

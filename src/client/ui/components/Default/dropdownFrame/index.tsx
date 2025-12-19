@@ -54,8 +54,8 @@ export default function DropdownFrame(props: DropdownFrameProps) {
 			{isOpen && (
 				<DropdownScrollingFrame
 					options={props.options}
-					optionsHeight={props.optionsHeight ?? 40}
-					maxHeight={props.maxHeight ?? 200}
+					optionsHeight={props.optionsHeight ?? px(40)}
+					maxHeight={props.maxHeight ?? px(200)}
 					value={props.value}
 					backgroundColor3={props.backgroundColor3}
 					borderColor={props.borderColor}

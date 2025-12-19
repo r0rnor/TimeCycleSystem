@@ -1,10 +1,14 @@
 import { createContext } from "@rbxts/react";
-import { EvergreenTheme } from "./EvergreenTheme";
-import { PureDarkTheme } from "./PureDarkTheme";
+import { EvergreenTheme } from "./presets/EvergreenTheme";
+import { PureDarkTheme } from "./presets/PureDarkTheme";
+import { HighSkiesTheme } from "./presets/HighSkiesTheme";
+import { TreeTopTheme } from "./presets/TreeTopTheme";
 
 export const THEMES = {
 	evergreen: EvergreenTheme,
 	pureDark: PureDarkTheme,
+	highSkies: HighSkiesTheme,
+	treetop: TreeTopTheme,
 };
 
 export const CurrentTheme = PureDarkTheme;

@@ -10,11 +10,12 @@ export default function ThemeSwitchTitle() {
 	return (
 		<TextLabel
 			size={UDim2.fromScale(1, 0.1)}
-			position={UDim2.fromScale(0, 0)}
-			anchorPoint={new Vector2(0, 0)}
+			position={UDim2.fromScale(0.5, 0)}
+			anchorPoint={new Vector2(0.5, 0)}
 			text="Select Theme"
 			textSize={px(textSize[2])}
 			uiStrokeSize={px(stroke[1.5])}
+			textYAlignment={Enum.TextYAlignment.Top}
 		></TextLabel>
 	);
 }
