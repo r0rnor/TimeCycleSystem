@@ -6,6 +6,7 @@ import Season from "./components/season";
 import DayOfYear from "./components/day-of-year";
 import DayOfSeason from "./components/day-of-season";
 import TimeOfDay from "./components/time-of-day";
+import Year from "./components/year";
 
 export default function InnerTimeIndicators() {
 	const { colors } = useContext(ThemeContext);
@@ -19,11 +20,12 @@ export default function InnerTimeIndicators() {
 		>
 			<ContainerFrame
 				size={UDim2.fromScale(1, 1)}
-				cellSize={UDim2.fromScale(0.95, 0.2)}
+				cellSize={UDim2.fromScale(0.95, 0.16)}
 				verticalAlignment={Enum.VerticalAlignment.Center}
 				horizontalAlignment={Enum.HorizontalAlignment.Center}
 				cellPadding={new UDim2(0, 0, 0.03, 0)}
 			>
+				<Year />
 				<Season />
 				<DayOfYear />
 				<DayOfSeason />
