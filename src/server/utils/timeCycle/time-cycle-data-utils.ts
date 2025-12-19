@@ -1,7 +1,7 @@
 import { store } from "server/store";
 import { DAYS_PER_SEASON, SEASONS } from "shared/configs/timeCycle/Seasons";
 import { SECONDS_PER_DAY } from "shared/configs/timeCycle/TimeOfDay";
-import { selectDay, selectSeason, selectTimeOfDay, selectYear } from "shared/store/selectors/timeCycleSelector";
+import { selectDay, selectTimeOfDay, selectYear } from "shared/store/selectors/timeCycleSelector";
 import { getSeasonIndex, setSeasonByIndex } from "./season-data-utils";
 
 interface IncrementProperties {
