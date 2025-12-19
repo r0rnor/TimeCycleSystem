@@ -1,48 +1,69 @@
 import { store } from "server/store";
-import { SEASONS } from "shared/configs/timeCycle/Seasons";
+import { DAYS_PER_SEASON, SEASONS } from "shared/configs/timeCycle/Seasons";
 import { SECONDS_PER_DAY } from "shared/configs/timeCycle/TimeOfDay";
 import { selectDay, selectSeason, selectTimeOfDay, selectYear } from "shared/store/selectors/timeCycleSelector";
+import { getSeasonIndex, setSeasonByIndex } from "./season-data-utils";
 
-export function incrementTimeOfDay(incrementValue = 1) {
-	const currentTimeOfDay = store.getState(selectTimeOfDay());
-	const nextTimeOfDay = (currentTimeOfDay + incrementValue) % SECONDS_PER_DAY;
+interface IncrementProperties {
+	get: () => number;
+	set: (value: number) => void;
+	maxValue: number;
 
-	const shouldIncrementDay = nextTimeOfDay < currentTimeOfDay;
+	incrementNextLevel: (value: number) => void;
+	incrementValue?: number;
+}
 
-	if (shouldIncrementDay) {
-		incrementDay();
+function increment(properties: IncrementProperties) {
+	const incrementValue = properties.incrementValue ?? 1;
+
+	const previousValue = properties.get();
+	const additionResultValue = previousValue + incrementValue;
+
+	const newValue = additionResultValue % properties.maxValue;
+
+	const incrementNextValue = (additionResultValue - newValue) / properties.maxValue;
+
+	if (incrementNextValue > 0) {
+		properties.incrementNextLevel(incrementNextValue);
 	}
 
-	store.setTimeOfDay(nextTimeOfDay);
+	properties.set(newValue);
+}
+
+export function incrementTimeOfDay(incrementValue = 1) {
+	increment({
+		get: () => store.getState(selectTimeOfDay()),
+		set: (value: number) => store.setTimeOfDay(value),
+		maxValue: SECONDS_PER_DAY,
+
+		incrementNextLevel: (value: number) => incrementDay(value),
+		incrementValue,
+	});
 }
 
 export function incrementDay(incrementValue = 1) {
-	const currentDay = store.getState(selectDay());
-	const nextDay = currentDay + incrementValue;
+	increment({
+		get: () => store.getState(selectDay()),
+		set: (value: number) => store.setDay(value),
+		maxValue: DAYS_PER_SEASON,
 
-	const shouldIncrementSeason = nextDay < currentDay;
-
-	if (shouldIncrementSeason) {
-		incrementSeason();
-	}
-
-	store.setDay(nextDay);
+		incrementNextLevel: (value: number) => incrementSeason(value),
+		incrementValue,
+	});
 }
 
 export function incrementSeason(incrementValue = 1) {
-	const currentSeason = store.getState(selectSeason());
-	const currentSeasonIndex = SEASONS.indexOf(currentSeason);
+	const getSeasonIndexCallback = () => getSeasonIndex();
+	const setIndexSeasonCallback = (index: number) => setSeasonByIndex(index);
 
-	const nextSeasonIndex = (currentSeasonIndex + incrementValue) % SEASONS.length;
-	const nextSeason = SEASONS[nextSeasonIndex];
+	increment({
+		get: getSeasonIndexCallback,
+		set: setIndexSeasonCallback,
+		maxValue: SEASONS.length,
 
-	const shouldIncrementYear = nextSeasonIndex < currentSeasonIndex;
-
-	if (shouldIncrementYear) {
-		incrementYear();
-	}
-
-	store.setSeason(nextSeason);
+		incrementNextLevel: (value: number) => incrementYear(value),
+		incrementValue,
+	});
 }
 
 export function incrementYear(incrementValue = 1) {
