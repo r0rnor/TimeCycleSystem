@@ -7,8 +7,8 @@
 	  "sourceType": "module",
 	  "project": "./tsconfig.json"
 	},
-	"ignorePatterns": ["/out", "/types"],
-	"plugins": ["@typescript-eslint", "roblox-ts", "prettier"],
+	"ignorePatterns": ["/out", "/types", "commitlint.config.ts", "src/shared/info/assets.d.ts", ".github/instructions", "sourcemap.json"],
+	"plugins": ["@typescript-eslint", "roblox-ts", "prettier", "@cspell"],
 	"extends": [
 	  "eslint:recommended",
 	  "plugin:@typescript-eslint/recommended-type-checked",
@@ -20,42 +20,11 @@
 	  "prettier/prettier": [
 		"warn",
 		{
-		  "printWidth": 120,
-		  "tabWidth": 4,
-		  "trailingComma": "all",
-		  "useTabs": true,
-		  "endOfLine": "auto"
+			"singleAttributePerLine": true
 		}
 	  ],
-
+	  "@cspell/spellchecker": "warn",
 	  "@typescript-eslint/array-type": ["error", { "default": "generic" }],
-	  "roblox-ts/no-private-identifier": "off",
-
-	//   "@typescript-eslint/naming-convention": [
-	// 	"error",
-	// 	{
-	// 	  "selector": "default",
-	// 	  "format": ["camelCase"]
-	// 	},
-	// 	{
-	// 	  "selector": "variable",
-	// 	  "format": ["camelCase", "UPPER_CASE"]
-	// 	},
-	// 	{
-	// 	  "selector": "parameter",
-	// 	  "format": ["camelCase"],
-	// 	  "leadingUnderscore": "allow"
-	// 	},
-	// 	{
-	// 	  "selector": "memberLike",
-	// 	  "modifiers": ["private"],
-	// 	  "format": ["camelCase"]
-	// 	  //   "leadingUnderscore": "require"
-	// 	},
-	// 	{
-	// 	  "selector": "typeLike",
-	// 	  "format": ["PascalCase"]
-	// 	}
-	//   ]
+	  "roblox-ts/no-private-identifier": "off"
 	}
   }

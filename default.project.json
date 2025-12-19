@@ -1,5 +1,5 @@
 {
-  "name": "Roblox-TS-Template",
+  "name": "Time-Cycle",
   "globIgnorePaths": ["**/package.json", "**/tsconfig.json"],
   "tree": {
     "$className": "DataModel",
@@ -45,7 +45,7 @@
     "HttpService": {
       "$className": "HttpService",
       "$properties": {
-        "HttpEnabled": true
+        "HttpEnabled": false
       }
     },
     "SoundService": {
@@ -53,6 +53,13 @@
       "$properties": {
         "RespectFilteringEnabled": true
       }
-    }
+    },
+    "TestService": {
+			"$className": "TestService",
+			"$properties": {
+				"ExecuteWithStudioRun": true
+			},
+			"$path": "test"
+		}
   }
 }

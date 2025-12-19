@@ -1,0 +1,5 @@
+cooldown
+cutscene
+gamepasses
+microtransactions
+regen

@@ -1,13 +1,46 @@
 {
 	"[typescript]": {
-		"editor.defaultFormatter": "dbaeumer.vscode-eslint",
-		"editor.formatOnSave": true
+		"editor.defaultFormatter": "rvest.vs-code-prettier-eslint",
+		"editor.formatOnSave": true,
+		"editor.formatOnPaste": true,
+		"editor.formatOnSaveMode": "file",
+		
 	},
 	"[typescriptreact]": {
 		"editor.defaultFormatter": "vscode.typescript-language-features",
 		"editor.formatOnSave": true
 	},
-	"eslint.run": "onType",
-	"eslint.format.enable": true,
-	"typescript.tsdk": "node_modules/typescript/lib"
+	"typescript.tsdk": "node_modules/typescript/lib",
+	"editor.autoClosingBrackets": "always",
+	"cSpell.words": ["darklua", "cframe"],
+	"files.exclude": {
+		"flamework.build": false,
+		"selene.toml": false,
+		"testez-companion.toml": false,
+		"sourcemap.json": false,
+		"include": false,
+		"node_modules": false,
+		".prettierrc": false,
+		"cspell.config.yaml": false,
+		"package-lock.json": false,
+		"README.md": false,
+		"tsconfig.json": false,
+		".gitattributes": false,
+		"test": false,
+		"scripts": false,
+		"out/**/*": false,
+		".darklua.json": false,
+		".env": false,
+		"asphalt.lock.toml": false,
+		".husky": false,
+		".gitignore": false,
+		".luaurc": false,
+		"aftman.ci.toml": false
+	},
+	"files.watcherExclude": {
+		"**/node_modules/**": true,
+		"**/out/**": true,
+		"**/objects/**": true,
+		"**/.git/**": true
+	}
 }
