@@ -1,10 +1,10 @@
 import { CommandDefinition } from "@rbxts/cmdr";
 
 export = identity<CommandDefinition>({
-	Name: "printLength",
-	Aliases: ["print-length"],
-	Description: "Increase the Players Currency",
-	Group: "Admin",
+	Name: "print-length",
+	Aliases: ["pl"],
+	Description: "Prints the length in minutes of the specified day phase (day or night)",
+	Group: "Default",
 	Args: [
 		{
 			Type: "dayPhase",
