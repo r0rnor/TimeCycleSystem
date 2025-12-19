@@ -1,8 +1,7 @@
 import { store } from "server/store";
 import { DAYS_PER_SEASON, SEASONS } from "shared/configs/timeCycle/Seasons";
 import { SECONDS_PER_DAY } from "shared/configs/timeCycle/TimeOfDay";
-import { selectDay, selectTimeOfDay, selectYear } from "shared/store/selectors/timeCycleSelector";
-import { getSeasonIndex, setSeasonByIndex } from "./season-data-utils";
+import { selectDay, selectSeasonIndex, selectTimeOfDay, selectYear } from "shared/store/selectors/timeCycleSelector";
 
 interface IncrementProperties {
 	get: () => number;
@@ -53,13 +52,13 @@ export function incrementDay(incrementValue = 1) {
 }
 
 export function incrementSeason(incrementValue = 1) {
-	const getSeasonIndexCallback = () => getSeasonIndex();
-	const setIndexSeasonCallback = (index: number) => setSeasonByIndex(index);
+	const getSeasonIndexCallback = () => store.getState(selectSeasonIndex());
+	const setIndexSeasonCallback = (index: number) => store.setSeasonByIndex(index);
 
 	increment({
 		get: getSeasonIndexCallback,
 		set: setIndexSeasonCallback,
-		maxValue: SEASONS.length,
+		maxValue: SEASONS.size(),
 
 		incrementNextLevel: (value: number) => incrementYear(value),
 		incrementValue,
