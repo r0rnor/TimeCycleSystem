@@ -22,25 +22,25 @@ interface Props {
 	hoverColor3?: Color3;
 }
 
-export default function OptionsContainer({ options, optionsHeight, value, onChange, backgroundColor3, textColor3, selectedColor3, hoverColor3 }: Props) {
+export default function OptionsContainer(props: Props) {
 	const { colors, textColors, textSize } = useContext(ThemeContext);
 	const px = usePx();
 	const [hoveredIndex, setHoveredIndex] = useState<number | undefined>(undefined);
 
-	const mainBgColor = backgroundColor3 ?? colors.primary.main;
-	const mainTextColor = textColor3 ?? textColors.primary.main;
-	const mainSelectedColor = selectedColor3 ?? colors.secondary.light;
-	const mainHoverColor = hoverColor3 ?? colors.primary.light;
+	const mainBgColor = props.backgroundColor3 ?? colors.primary.main;
+	const mainTextColor = props.textColor3 ?? textColors.primary.main;
+	const mainSelectedColor = props.selectedColor3 ?? colors.secondary.light;
+	const mainHoverColor = props.hoverColor3 ?? colors.primary.light;
 
-	const optionsUi = options.map((option, index) => {
-		const isSelected = option.value === value;
+	const optionsUi = props.options.map((option, index) => {
+		const isSelected = option.value === props.value;
 		const isHovered = hoveredIndex === index;
 
 		const optionBgColor = isSelected ? mainSelectedColor : isHovered ? mainHoverColor : mainBgColor;
 
 		return (
 			<TextButton
-				size={new UDim2(0.98, 0, 0, optionsHeight)}
+				size={new UDim2(0.98, 0, 0, props.optionsHeight)}
 				backgroundColor3={optionBgColor}
 				borderSize={0}
 				text={option.label}
@@ -48,7 +48,7 @@ export default function OptionsContainer({ options, optionsHeight, value, onChan
 				textSize={px(textSize[1.25])}
 				autoButtonColor={false}
 				layoutOrder={index}
-				onClick={() => onChange(option.value)}
+				onClick={() => props.onChange(option.value)}
 				onEnter={() => setHoveredIndex(index)}
 				onLeave={() => setHoveredIndex(undefined)}
 			></TextButton>
