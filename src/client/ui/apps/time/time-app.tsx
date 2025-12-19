@@ -2,6 +2,7 @@ import React from "@rbxts/react";
 import Frame from "client/ui/components/Default/frame";
 import { usePx } from "client/ui/utils/use-px";
 import TimeAppTitle from "./components/time-app-title";
+import InnerTimeIndicators from "./components/innerTimeIndicators";
 
 export default function TimeApp() {
 	const px = usePx();
@@ -13,6 +14,7 @@ export default function TimeApp() {
 			size={UDim2.fromOffset(px(600), px(600))}
 		>
 			<TimeAppTitle />
+			<InnerTimeIndicators />
 		</Frame>
 	);
 }

@@ -10,7 +10,7 @@ export default function TimeAppTitle() {
 	return (
 		<TextLabel
 			size={UDim2.fromScale(1, 0.1)}
-			position={UDim2.fromScale(0.5, 0)}
+			position={UDim2.fromScale(0.5, 0.02)}
 			anchorPoint={new Vector2(0.5, 0)}
 			text="Current Time"
 			textSize={px(textSize[2])}
