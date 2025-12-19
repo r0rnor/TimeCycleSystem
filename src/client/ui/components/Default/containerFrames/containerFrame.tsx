@@ -1,29 +1,9 @@
-import React from "@rbxts/react";
+import React, { useContext } from "@rbxts/react";
+import { usePx } from "client/ui/utils/use-px";
+import { ThemeContext } from "shared/themes/theme";
+import { ContainerFrameProps } from "./types";
 
-interface Props extends React.PropsWithChildren {
-	anchorPoint?: Vector2;
-	position?: UDim2;
-	size: UDim2;
-	scrollBarImageColor3?: Color3;
-	scrollBarThickness?: number;
-	automaticCanvasSize?: Enum.AutomaticSize;
-	backgroundColor3?: Color3;
-	backgroundTransparency?: number;
-	layoutOrder?: number;
-
-	cellPadding?: UDim2;
-	cellSize?: UDim2;
-	horizontalAlignment?: Enum.HorizontalAlignment;
-	verticalAlignment?: Enum.VerticalAlignment;
-
-	paddingTop?: UDim;
-	paddingBottom?: UDim;
-	paddingLeft?: UDim;
-	paddingRight?: UDim;
-	allPadding?: UDim;
-}
-
-export default function ContainerFrame(props: Props) {
+export default function ContainerFrame(props: ContainerFrameProps) {
 	if (props.allPadding) {
 		props.paddingTop = props.allPadding;
 		props.paddingBottom = props.allPadding;
@@ -35,6 +15,9 @@ export default function ContainerFrame(props: Props) {
 		props.backgroundTransparency = props.backgroundColor3 ? 0 : 1;
 	}
 
+	const { colors } = useContext(ThemeContext);
+	const px = usePx();
+
 	return (
 		<scrollingframe
 			key="Container"
@@ -42,12 +25,14 @@ export default function ContainerFrame(props: Props) {
 			AutomaticCanvasSize={props.automaticCanvasSize ?? Enum.AutomaticSize.Y}
 			BackgroundTransparency={props.backgroundTransparency}
 			BackgroundColor3={props.backgroundColor3}
+			BorderColor3={props.borderColor3 ?? colors.primary.opposite}
 			BorderSizePixel={0}
-			CanvasSize={new UDim2(0, 0, 0, 0)}
+			CanvasSize={props.canvasSize ?? new UDim2(0, 0, 0, 0)}
 			Position={props.position}
-			ScrollBarImageColor3={props.scrollBarImageColor3 ?? Color3.fromRGB(0, 44, 68)}
-			ScrollBarThickness={props.scrollBarThickness ?? 6}
+			ScrollBarImageColor3={props.scrollBarImageColor3 ?? colors.secondary.opposite}
+			ScrollBarThickness={props.scrollBarThickness ?? px(6)}
 			Size={props.size}
+			Visible={props.visible ?? true}
 			VerticalScrollBarInset={Enum.ScrollBarInset.ScrollBar}
 			LayoutOrder={props.layoutOrder}
 		>
