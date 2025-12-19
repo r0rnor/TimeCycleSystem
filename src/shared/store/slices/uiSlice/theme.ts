@@ -25,8 +25,6 @@ export const themeSlice = createProducer(INITIAL_STATE, {
 
 		newState[playerId] = theme;
 
-		print("Theme set to:", theme, "for player:", playerId);
-
 		return newState;
 	},
 });

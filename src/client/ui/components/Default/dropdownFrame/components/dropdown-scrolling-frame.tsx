@@ -31,8 +31,6 @@ export default function DropdownScrollingFrame(props: DropdownScrollingFrameProp
 
 	const scrollingFrameSize = new UDim2(1, 0, 0, math.min(props.options.size() * props.optionsHeight, props.maxHeight));
 
-	print(scrollingFrameSize);
-
 	const dropdownUi = (
 		<Frame
 			position={new UDim2(0, 0, 1.3, 0)}
