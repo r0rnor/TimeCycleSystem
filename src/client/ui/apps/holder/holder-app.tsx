@@ -1,5 +1,6 @@
 import React from "@rbxts/react";
 import ThemeSwitchApp from "../themeSwitch/theme-switch-app";
+import TimeApp from "../time/time-app";
 
 export default function HolderApp() {
 	return (
@@ -10,6 +11,7 @@ export default function HolderApp() {
 			BackgroundTransparency={1}
 		>
 			<ThemeSwitchApp />
+			<TimeApp />
 		</frame>
 	);
 }
