@@ -1,45 +1,49 @@
-// import { Controller, OnStart } from "@flamework/core";
-// import React, { useMemo } from "@rbxts/react";
-// import { useSelector, ReflexProvider } from "@rbxts/react-reflex";
-// import { createPortal, createRoot } from "@rbxts/react-roblox";
-// import { Players } from "@rbxts/services";
-// import { store } from "client/store";
-// import ScreenGui from "client/ui/components/Default/scaledGui";
-// import { GetStatePlayerId } from "client/ui/utils/GetStatePlayerId";
-// import { THEMES, ThemeContext } from "shared/themes/theme";
+import { Controller, OnStart } from "@flamework/core";
+import React, { useMemo } from "@rbxts/react";
+import { useSelector, ReflexProvider } from "@rbxts/react-reflex";
+import { createPortal, createRoot } from "@rbxts/react-roblox";
+import { Players } from "@rbxts/services";
+import { store } from "client/store";
+import HolderApp from "client/ui/apps/holder/holder-app";
+import ScreenGui from "client/ui/components/Default/scaledGui";
+import { GetStatePlayerId } from "client/ui/utils/GetStatePlayerId";
+import { selectTheme } from "shared/store/selectors/uiSelector";
+import { THEMES, ThemeContext } from "shared/themes/theme";
 
-// @Controller({})
-// export class GuiController implements OnStart {
-// 	private playerGui = Players.LocalPlayer.WaitForChild("PlayerGui");
+@Controller({})
+export class GuiController implements OnStart {
+	private playerGui = Players.LocalPlayer.WaitForChild("PlayerGui");
 
-// 	onStart() {
-// 		task.wait(3);
+	onStart() {
+		task.wait(3);
 
-// 		const ThemeWrapper: React.FC = () => {
-// 			const currentThemeName = useSelector(selectPlayerTheme(GetStatePlayerId())) ?? "pureDark";
+		const ThemeWrapper: React.FC = () => {
+			const playerId = GetStatePlayerId();
 
-// 			const currentTheme = useMemo(() => {
-// 				return { ...THEMES[currentThemeName] };
-// 			}, [currentThemeName]);
+			const currentThemeName = useSelector(selectTheme(playerId)) ?? "pureDark";
 
-// 			return (
-// 				<ThemeContext.Provider value={currentTheme}>
-// 					<ScreenGui>
-// 						<HolderApp />
-// 					</ScreenGui>
-// 				</ThemeContext.Provider>
-// 			);
-// 		};
+			const currentTheme = useMemo(() => {
+				return { ...THEMES[currentThemeName] };
+			}, [currentThemeName]);
 
-// 		const root = createRoot(new Instance("Folder"));
-// 		root.render(
-// 			createPortal(
-// 				<ReflexProvider producer={store}>
-// 					<ThemeWrapper />
-// 				</ReflexProvider>,
+			return (
+				<ThemeContext.Provider value={currentTheme}>
+					<ScreenGui>
+						<HolderApp />
+					</ScreenGui>
+				</ThemeContext.Provider>
+			);
+		};
 
-// 				this.playerGui,
-// 			),
-// 		);
-// 	}
-// }
+		const root = createRoot(new Instance("Folder"));
+		root.render(
+			createPortal(
+				<ReflexProvider producer={store}>
+					<ThemeWrapper />
+				</ReflexProvider>,
+
+				this.playerGui,
+			),
+		);
+	}
+}
