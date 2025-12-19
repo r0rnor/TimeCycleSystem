@@ -8,7 +8,7 @@ const OUTPUT_TIME_MULTIPLIER = 24 / MINUTES_PER_DAY;
 export function timeOfDayToText(displayMinutes: number, useAmPm = false) {
 	displayMinutes = math.round(displayMinutes * OUTPUT_TIME_MULTIPLIER);
 
-	let displayHours = math.round(displayMinutes / 60) % 24;
+	let displayHours = math.floor(displayMinutes / 60) % 24;
 
 	displayMinutes %= 60;
 
