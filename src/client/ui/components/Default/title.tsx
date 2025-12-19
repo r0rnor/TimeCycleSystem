@@ -1,6 +1,7 @@
-import React from "@rbxts/react";
+import React, { useContext } from "@rbxts/react";
 import Frame from "./frame";
 import TextLabel from "./textLabel";
+import { ThemeContext } from "shared/themes/theme";
 
 interface Props extends React.PropsWithChildren {
 	text: string;
@@ -10,7 +11,7 @@ interface Props extends React.PropsWithChildren {
 	position?: UDim2;
 	anchorPoint?: Vector2;
 	size?: UDim2;
-	uiCornerSize?: UDim;
+	cornerRadius?: UDim;
 	backgroundColor3?: Color3;
 	layoutOrder?: number;
 	zIndex?: number;
@@ -22,16 +23,18 @@ interface Props extends React.PropsWithChildren {
 export default function Title(props: Props) {
 	const zIndex = props.zIndex ?? 1;
 
+	const { colors, cornerRadius, stroke } = useContext(ThemeContext);
+
 	return (
 		<Frame
 			key="Title"
-			backgroundColor3={props.backgroundColor3 ?? Color3.fromRGB(0, 137, 215)}
+			backgroundColor3={props.backgroundColor3 ?? colors.primary.dark}
 			anchorPoint={props.anchorPoint}
 			position={props.position}
 			size={props.size}
 			layoutOrder={props.layoutOrder}
 			zIndex={zIndex}
-			uiCornerSize={props.uiCornerSize ?? new UDim(0, 31)}
+			cornerRadius={props.cornerRadius ?? new UDim(0, cornerRadius[3])}
 			uiStrokeSize={props.uiStrokeSize ?? 0}
 		>
 			{props.children}
@@ -44,7 +47,7 @@ export default function Title(props: Props) {
 				text={props.text}
 				textSize={props.textSize ?? 60}
 				textXAlignment={props.textXAlignment ?? Enum.TextXAlignment.Center}
-				uiStrokeSize={props.uiTextStrokeSize ?? 5}
+				uiStrokeSize={props.uiTextStrokeSize ?? stroke[1]}
 			></TextLabel>
 		</Frame>
 	);
