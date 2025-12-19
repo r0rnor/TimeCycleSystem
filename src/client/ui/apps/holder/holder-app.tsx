@@ -1,5 +1,5 @@
 import React from "@rbxts/react";
-import ThemeSwitchButtonApp from "../themeSwitchButton/theme-switch-button-app";
+import ThemeSwitchApp from "../themeSwitch/theme-switch-app";
 
 export default function HolderApp() {
 	return (
@@ -9,7 +9,7 @@ export default function HolderApp() {
 			Size={new UDim2(1, 0, 1, 0)}
 			BackgroundTransparency={1}
 		>
-			<ThemeSwitchButtonApp />
+			<ThemeSwitchApp />
 		</frame>
 	);
 }

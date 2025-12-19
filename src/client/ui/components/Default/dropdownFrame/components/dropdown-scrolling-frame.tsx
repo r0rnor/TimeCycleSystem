@@ -35,7 +35,7 @@ export default function DropdownScrollingFrame({ options, optionsHeight, maxHeig
 			size={new UDim2(1, 0, 0, px(math.min(options.size() * optionsHeight, maxHeight)))}
 			backgroundColor3={mainBgColor}
 			borderColor={mainBorderColor}
-			uiStrokeSize={px(stroke[1.25])}
+			borderSize={px(stroke[1.25])}
 			zIndex={10}
 		>
 			<ContainerFrame

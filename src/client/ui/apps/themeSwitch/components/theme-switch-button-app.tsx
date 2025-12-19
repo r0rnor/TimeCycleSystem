@@ -1,20 +1,21 @@
 import Object from "@rbxts/object-utils";
-import React, { useState } from "@rbxts/react";
+import React, { useContext, useState } from "@rbxts/react";
 import { useSelector } from "@rbxts/react-reflex";
 import { Events } from "client/network";
 import { store } from "client/store";
 import DropdownFrame from "client/ui/components/Default/dropdownFrame";
 import { DropdownOption } from "client/ui/components/Default/dropdownFrame/components/options-container";
 import { GetStatePlayerId } from "client/ui/utils/GetStatePlayerId";
+import { usePx } from "client/ui/utils/use-px";
 import { selectTheme } from "shared/store/selectors/uiSelector";
-import { ThemeName, THEMES } from "shared/themes/theme";
+import { ThemeContext, ThemeName, THEMES } from "shared/themes/theme";
 
-export default function ThemeSwitchButtonApp() {
+export default function ThemeSwitchButton() {
+	const { stroke } = useContext(ThemeContext);
+	const px = usePx();
+
 	const playerId = GetStatePlayerId();
-
-	const startTheme = useSelector(selectTheme(playerId));
-
-	const [theme, setTheme] = useState<ThemeName>(startTheme);
+	const theme = useSelector(selectTheme(playerId));
 
 	const options: Array<DropdownOption> = [];
 
@@ -27,14 +28,11 @@ export default function ThemeSwitchButtonApp() {
 
 	return (
 		<DropdownFrame
-			position={new UDim2(1, 0, 0.5, 0)}
-			anchorPoint={new Vector2(1, 0.5)}
 			value={theme}
 			options={options}
+			borderSize={px(stroke[2])}
 			onChange={(value) => {
 				const newTheme = value as ThemeName;
-
-				setTheme(newTheme);
 
 				store.setTheme(playerId, newTheme);
 

@@ -35,7 +35,7 @@ export default function Title(props: Props) {
 			layoutOrder={props.layoutOrder}
 			zIndex={zIndex}
 			cornerRadius={props.cornerRadius ?? new UDim(0, cornerRadius[3])}
-			uiStrokeSize={props.uiStrokeSize ?? 0}
+			borderSize={props.uiStrokeSize ?? 0}
 		>
 			{props.children}
 
