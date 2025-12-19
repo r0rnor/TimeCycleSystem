@@ -2,10 +2,7 @@ import { Players } from "@rbxts/services";
 
 type PlayerReceivingFunction = (player: Player) => unknown;
 
-export function forEveryPlayer(
-	joinFunc: PlayerReceivingFunction,
-	leaveFunc?: PlayerReceivingFunction,
-): Array<RBXScriptConnection> {
+export function forEveryPlayer(joinFunc: PlayerReceivingFunction, leaveFunc?: PlayerReceivingFunction): Array<RBXScriptConnection> {
 	const events: Array<RBXScriptConnection> = [];
 
 	Players.GetPlayers().forEach(joinFunc);

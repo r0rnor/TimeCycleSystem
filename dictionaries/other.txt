@@ -2,9 +2,12 @@ Assignables
 clipboardjs
 codegen
 corecii
+degloved
 Despawn
 Emittery
 flowtypes
+Goodbyings
+helo
 hoarcekat
 Ints
 jacktabscode
@@ -22,6 +25,7 @@ runif
 seaofvoices
 Spatialable
 Spawnable
+Taskings
 traversers
 Tweens
 Visualizable

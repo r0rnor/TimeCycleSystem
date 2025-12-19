@@ -1,0 +1,16 @@
+name: 'Setup NPM'
+description: 'Setup npm & packages'
+runs:
+  using: "composite"
+  steps:
+    - name: Setup Node.js
+      uses: actions/setup-node@v6
+      with:
+        node-version: latest
+        cache: 'npm'
+    
+    - name: Install npm dependencies
+      run: npm install
+      shell: pwsh
+
+    

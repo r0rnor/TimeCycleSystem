@@ -2,12 +2,5 @@
   "lint": {
     "*": true,
     "LocalShadow": false
-  },
-  "aliases": {
-    "lune": "~/.lune/.typedefs/0.9.4/",
-    "LuneModules": "lune/modules",
-    "LunePackages": "lune_packages",
-    "LuauPackages": "luau_packages",
-    "Lunar": "lune"
   }
 }
