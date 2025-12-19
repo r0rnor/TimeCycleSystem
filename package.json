@@ -6,7 +6,7 @@
   "scripts": {
     "build": "rbxtsc",
     "watch": "rbxtsc -w",
-    "test": "rojo build --output MainGame.rbxl && run-in-roblox --place MainGame.rbxl --script test/spec.server.luau",
+    "test": "rojo build --output Test.rbxl && run-in-roblox --place Test.rbxl --script test/spec.server.luau",
     "spellcheck": "cspell \"**/*.{ts,tsx,js,jsx,md,json,yml}\"",
     "lint": "eslint src/",
     "lint:fix": "eslint src/ --fix",
