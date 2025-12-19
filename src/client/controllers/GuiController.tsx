@@ -3,7 +3,6 @@ import React from "@rbxts/react";
 import { ReflexProvider } from "@rbxts/react-reflex";
 import { createPortal, createRoot } from "@rbxts/react-roblox";
 import { Players } from "@rbxts/services";
-import { store } from "client/store";
 import ScreenGui from "client/ui/components/scaledGui";
 
 @Controller({})
@@ -12,13 +11,6 @@ export class GuiController implements OnStart {
 
 	onStart() {
 		const root = createRoot(new Instance("Folder"));
-		root.render(
-			createPortal(
-				<ReflexProvider producer={store}>
-					<ScreenGui></ScreenGui>
-				</ReflexProvider>,
-				this.playerGui,
-			),
-		);
+		root.render(<ScreenGui />);
 	}
 }
