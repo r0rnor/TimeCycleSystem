@@ -29,18 +29,16 @@ export class PlayerDataService implements OnInit {
 		const profileKey = KEY_TEMPLATE.format(userId);
 		const profile = this.profileStore.LoadProfileAsync(profileKey);
 
+		const allProfiles = this.getAllProfiles();
+
 		if (!profile) return player.Kick();
 
-		profile.ListenToRelease(() => {
-			this.profiles.delete(player);
-			store.closePlayerData(userId);
-			player.Kick();
-		});
+		profile.ListenToRelease(() => this.onRelease(player));
 
 		profile.AddUserId(tonumber(userId)!);
 		profile.Reconcile();
 
-		this.profiles.set(player, profile);
+		allProfiles.set(player, profile);
 		store.loadPlayerData(userId, profile.Data);
 
 		const unsubscribe = store.subscribe(selectPlayerData(userId), (save) => {
@@ -52,12 +50,29 @@ export class PlayerDataService implements OnInit {
 		});
 	}
 
+	private onRelease(player: Player) {
+		const userId = tostring(player.UserId);
+
+		this.profiles.delete(player);
+
+		store.closePlayerData(userId);
+
+		player.Kick();
+	}
+
 	private removeProfile(player: Player) {
-		const profile = this.profiles.get(player);
+		const profile = this.getProfile(player);
+
 		profile?.Release();
 	}
 
-	public getProfile(player: Player) {
-		return this.profiles.get(player);
+	getProfile(player: Player) {
+		const profiles = this.getAllProfiles();
+
+		return profiles.get(player);
+	}
+
+	getAllProfiles() {
+		return this.profiles;
 	}
 }
