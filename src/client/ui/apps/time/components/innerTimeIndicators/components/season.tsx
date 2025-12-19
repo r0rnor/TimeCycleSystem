@@ -2,11 +2,13 @@ import React from "@rbxts/react";
 import TimeIndicator from "./time-indicator";
 import { selectSeason } from "shared/store/selectors/timeCycleSelector";
 
-export default function CurrentSeason() {
+export default function Season() {
+	const toText = (value: string) => `Season: ${value}`;
+
 	return (
 		<TimeIndicator
 			selector={selectSeason}
-			toText={(value) => `Season: ${value}`}
+			toText={toText}
 		/>
 	);
 }
