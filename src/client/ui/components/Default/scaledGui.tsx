@@ -14,7 +14,10 @@ export default function ScreenGui(props: Props) {
 	}, []);
 
 	return (
-		<screengui Enabled={true}>
+		<screengui
+			Enabled={true}
+			ZIndexBehavior={Enum.ZIndexBehavior.Sibling}
+		>
 			<uiscale
 				Scale={1}
 				ref={uiScaleRef}

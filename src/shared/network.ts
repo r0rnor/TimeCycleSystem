@@ -1,11 +1,14 @@
 /* eslint-disable no-unused-vars */
 import { Networking } from "@flamework/networking";
 import { BroadcastAction } from "@rbxts/reflex";
+import { ThemeName } from "./themes/theme";
 
 interface ServerEvents {
 	reflex: {
 		start: () => void;
 	};
+
+	setTheme: (themeName: ThemeName) => void;
 }
 
 interface ServerFunctions {}
