@@ -4,7 +4,7 @@ import { START_TIME_OF_DAY, SECONDS_PER_DAY } from "shared/configs/timeCycle/Tim
 
 describe("timeOfDaySlice", () => {
 	it("should have correct initial state", () => {
-		expect(START_TIME_OF_DAY).toBe(SECONDS_PER_DAY / 4);
+		expect(START_TIME_OF_DAY).toBe(SECONDS_PER_DAY / 3);
 	});
 
 	it("should set time of day value", () => {
