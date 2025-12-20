@@ -1,8 +1,9 @@
 import { Service, OnStart } from "@flamework/core";
 import { Lighting } from "@rbxts/services";
 import { store } from "server/store";
-import { MINUTES_PER_DAY, SECONDS_PER_MINUTE } from "shared/configs/timeCycle/TimeOfDay";
-import { selectTimeOfDay } from "shared/store/selectors/timeCycleSelector";
+import { DAY_CLOCK_TIME, NIGHT_CLOCK_TIME } from "shared/configs/timeCycle/ClockTime";
+import { selectDayOfYear, selectTimeOfDay } from "shared/store/selectors/timeCycleSelector";
+import { getSunriseTime, getSunsetTime, timeOfDaySecondsToClockTime } from "shared/utils/timeCycle/day-duration-utils";
 
 @Service({})
 export class SunMotionService implements OnStart {
@@ -13,12 +14,21 @@ export class SunMotionService implements OnStart {
 	}
 
 	private updateSunPosition(seconds: number) {
-		const minutes = seconds / SECONDS_PER_MINUTE;
+		const clockTime = this.getClockTime(seconds);
 
-		const dayProgress = minutes / MINUTES_PER_DAY;
+		Lighting.ClockTime = clockTime;
+	}
 
-		const hours = dayProgress * 24;
+	private getClockTime(seconds: number) {
+		const dayOfYear = store.getState(selectDayOfYear());
 
-		Lighting.ClockTime = hours;
+		const sunriseTime = getSunriseTime(dayOfYear);
+		const sunsetTime = getSunsetTime(dayOfYear);
+
+		const currentClockTime = timeOfDaySecondsToClockTime(seconds);
+
+		const isDaytime = currentClockTime >= sunriseTime && currentClockTime < sunsetTime;
+
+		return isDaytime ? DAY_CLOCK_TIME : NIGHT_CLOCK_TIME;
 	}
 }
