@@ -9,7 +9,6 @@ export function createStore() {
 		...slices,
 	});
 
-	// Apply middleware
 	store.applyMiddleware(broadcasterMiddleware());
 
 	return store;

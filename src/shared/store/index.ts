@@ -1,10 +1,10 @@
 import { CombineStates } from "@rbxts/reflex";
-import { playersSlice } from "./slices/players";
-import { clientSlice } from "./slices/client";
+import { timeCycleSlice } from "./slices/timeCycleSlice";
+import { uiSlice } from "./slices/uiSlice";
 
 export type SharedState = CombineStates<typeof slices>;
 
 export const slices = {
-  players: playersSlice,
-  client: clientSlice,
+	timeCycleSlice,
+	uiSlice,
 };

@@ -1,0 +1,73 @@
+import { store } from "server/store";
+import { DAYS_PER_SEASON, SEASONS } from "shared/configs/timeCycle/Seasons";
+import { SECONDS_PER_DAY } from "shared/configs/timeCycle/TimeOfDay";
+import { selectDay, selectSeasonIndex, selectTimeOfDay, selectYear } from "shared/store/selectors/timeCycleSelector";
+
+interface IncrementProperties {
+	get: () => number;
+	set: (value: number) => void;
+	maxValue: number;
+
+	incrementNextLevel: (value: number) => void;
+	incrementValue?: number;
+}
+
+function increment(properties: IncrementProperties) {
+	const incrementValue = properties.incrementValue ?? 1;
+
+	const previousValue = properties.get();
+	const additionResultValue = previousValue + incrementValue;
+
+	const newValue = additionResultValue % properties.maxValue;
+
+	const incrementNextValue = (additionResultValue - newValue) / properties.maxValue;
+
+	if (incrementNextValue > 0) {
+		properties.incrementNextLevel(incrementNextValue);
+	}
+
+	properties.set(newValue);
+}
+
+export function incrementTimeOfDay(incrementValue = 1) {
+	increment({
+		get: () => store.getState(selectTimeOfDay()),
+		set: (value: number) => store.setTimeOfDay(value),
+		maxValue: SECONDS_PER_DAY,
+
+		incrementNextLevel: (value: number) => incrementDay(value),
+		incrementValue,
+	});
+}
+
+export function incrementDay(incrementValue = 1) {
+	increment({
+		get: () => store.getState(selectDay()),
+		set: (value: number) => store.setDay(value),
+		maxValue: DAYS_PER_SEASON,
+
+		incrementNextLevel: (value: number) => incrementSeason(value),
+		incrementValue,
+	});
+}
+
+export function incrementSeason(incrementValue = 1) {
+	const getSeasonIndexCallback = () => store.getState(selectSeasonIndex());
+	const setIndexSeasonCallback = (index: number) => store.setSeasonByIndex(index);
+
+	increment({
+		get: getSeasonIndexCallback,
+		set: setIndexSeasonCallback,
+		maxValue: SEASONS.size(),
+
+		incrementNextLevel: (value: number) => incrementYear(value),
+		incrementValue,
+	});
+}
+
+export function incrementYear(incrementValue = 1) {
+	const currentYear = store.getState(selectYear());
+	const nextYear = currentYear + incrementValue;
+
+	store.setYear(nextYear);
+}

@@ -1,0 +1,8 @@
+export const MINUTES_PER_DAY = 20;
+export const AVERAGE_MINUTES_IN_DAY = 10;
+export const MINUTES_IN_DAY_AMPLITUDE = 4;
+
+export const SECONDS_PER_MINUTE = 60;
+export const SECONDS_PER_DAY = MINUTES_PER_DAY * SECONDS_PER_MINUTE;
+
+export const START_TIME_OF_DAY = SECONDS_PER_DAY / 3;

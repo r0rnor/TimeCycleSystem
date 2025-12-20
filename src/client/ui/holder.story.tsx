@@ -1,32 +1,40 @@
-import React from "@rbxts/react";
+import React, { useMemo } from "@rbxts/react";
 import ReactRoblox from "@rbxts/react-roblox";
 import { store } from "client/store";
-import { ReflexProvider } from "@rbxts/react-reflex";
+import { ReflexProvider, useSelector } from "@rbxts/react-reflex";
 import HolderApp from "./apps/holder/holder-app";
-import { HOLDER_PAGES } from "shared/configs/Gui";
-import { defaultPlayerData } from "shared/store/slices/players/utils";
 import { GetStatePlayerId } from "./utils/GetStatePlayerId";
-
-const controls = {}
+import { ThemeContext, THEMES } from "../../shared/themes/theme";
+import defaultPlayerData from "shared/configs/data/defaultPlayerData";
+import { selectTheme } from "shared/store/selectors/uiSelector";
 
 const Story = {
-    summary: "Holder",
-    react: React,
-    reactRoblox: ReactRoblox,
-    story: () => {
-        const latestPage = HOLDER_PAGES[HOLDER_PAGES.size() - 1]
-        store.loadPlayerData( GetStatePlayerId(), defaultPlayerData )
-        store.setHolderPage( latestPage )
-        store.toggleSetting( GetStatePlayerId(), "PvP" )
+	summary: "Holder",
+	react: React,
+	reactRoblox: ReactRoblox,
+	story: () => {
+		const playerId = GetStatePlayerId();
+		store.loadPlayerData(playerId, defaultPlayerData);
 
-        // store.setHolderPage( "Settings" )
+		const ThemeWrapper: React.FC = () => {
+			const currentThemeName = useSelector(selectTheme(playerId)) ?? "pureDark";
+			const currentTheme = useMemo(() => {
+				return { ...THEMES[currentThemeName] };
+			}, [currentThemeName]);
 
-        return (
-            <ReflexProvider producer={store}>
-                <HolderApp />
-            </ReflexProvider>
-        )
-    },
-}
+			return (
+				<ThemeContext.Provider value={currentTheme}>
+					<HolderApp />
+				</ThemeContext.Provider>
+			);
+		};
 
-export = Story
+		return (
+			<ReflexProvider producer={store}>
+				<ThemeWrapper />
+			</ReflexProvider>
+		);
+	},
+};
+
+export = Story;
