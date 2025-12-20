@@ -35,13 +35,13 @@ describe("uiSelector", () => {
 		it("should select different themes for different players", () => {
 			const state = createMockState({
 				Player_1: "evergreen",
-				Player_2: "puredark",
-				Player_3: "highskies",
+				Player_2: "pureDark",
+				Player_3: "highSkies",
 			});
 
 			expect(selectTheme("Player_1")(state)).toBe("evergreen");
-			expect(selectTheme("Player_2")(state)).toBe("puredark");
-			expect(selectTheme("Player_3")(state)).toBe("highskies");
+			expect(selectTheme("Player_2")(state)).toBe("pureDark");
+			expect(selectTheme("Player_3")(state)).toBe("highSkies");
 		});
 
 		it("should handle treetop theme", () => {
@@ -83,10 +83,10 @@ describe("uiSelector", () => {
 		it("should handle special characters in player ID", () => {
 			const playerId = "Player_123-456_ABC";
 			const state = createMockState({
-				[playerId]: "puredark",
+				[playerId]: "pureDark",
 			});
 			const selector = selectTheme(playerId);
-			expect(selector(state)).toBe("puredark");
+			expect(selector(state)).toBe("pureDark");
 		});
 	});
 
@@ -107,7 +107,7 @@ describe("uiSelector", () => {
 
 		it("should work correctly with many players", () => {
 			const themeData: Record<string, string> = {};
-			const themes = ["evergreen", "puredark", "highskies", "treetop"];
+			const themes = ["evergreen", "pureDark", "highSkies", "treetop"];
 
 			for (let i = 0; i < 100; i++) {
 				themeData[`Player_${i}`] = themes[i % themes.size()];
